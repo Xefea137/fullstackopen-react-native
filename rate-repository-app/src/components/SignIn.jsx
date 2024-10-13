@@ -3,6 +3,7 @@ import Text from "./Text";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import theme from "../theme";
 import * as yup from 'yup';
+import useSignIn from "../hooks/useSignIn";
 
 const styles = StyleSheet.create({
   inputBox: {
@@ -33,8 +34,8 @@ const styles = StyleSheet.create({
 });
 
 const initialValues = {
-  username: '',
-  password: '',
+  username: 'elina',
+  password: 'password',
 };
 
 const validationSchema = yup.object().shape({
@@ -84,8 +85,19 @@ const SignInForm = ({ onSubmit }) => {
 }
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    //console.log("values", values);
+    const { username, password } = values;
+
+    try {
+      const { data } = await signIn({ username, password });
+      console.log("data", data);
+      console.log("accessToken", data.authenticate.accessToken);
+    } catch (e) {
+      console.log("e", e);
+    }
   };
   
   return <SignInForm onSubmit={onSubmit} />
