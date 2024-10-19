@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import Text from "../Text";
 
-const dateStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -18,14 +18,14 @@ const setNumber = (number) => {
 }
 
 const ItemDetail = ({ value, label }) => (
-  <View style={dateStyles.column}>
+  <View style={styles.column}>
     <Text fontWeight="bold">{setNumber(value)}</Text>
     <Text color='textSecondary'>{label}</Text>
   </View>
 );
 
 const ItemData = ({ item }) => (
-  <View style={dateStyles.row}>
+  <View style={styles.row}>
     <ItemDetail value={item.stargazersCount} label='Stars' />
     <ItemDetail value={item.forksCount} label='Forks' />
     <ItemDetail value={item.reviewCount} label='Reviews' />

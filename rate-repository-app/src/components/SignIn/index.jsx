@@ -3,10 +3,11 @@ import * as yup from 'yup';
 import useSignIn from "../../hooks/useSignIn"
 import { useNavigate } from "react-router-native";
 import SignInForm from "./SignInForm";
+import { Alert } from "react-native";
 
 const initialValues = {
-  username: 'elina',
-  password: 'password',
+  username: '',
+  password: '',
 };
 
 const validationSchema = yup.object().shape({
@@ -38,9 +39,10 @@ const SignIn = () => {
     try {
       const data = await signIn({ username, password });
       navigate("/")
-      console.log("data", data);
+      console.log("signin data", data);
     } catch (e) {
       console.log("e", e);
+      Alert.alert("Error", e.message); 
     }
   };
   

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary,
   },
   colorTextWhite: {
-    color: theme.colors.whiteText,
+    color: theme.colors.white,
   },
   colorTextError: {
     color: theme.colors.error,

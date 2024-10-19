@@ -6,9 +6,10 @@ const theme = {
     textSecondary: '#586069',
     primary: '#0366d6',
     appBar: '#24292e',
-    whiteText: 'white',
+    white: 'white',
     fade: '#ccc',
-    error: '#d73a4a'
+    error: '#d73a4a',
+    grey: '#e1e4e8'
   },
   fontSizes: {
     body: 14,

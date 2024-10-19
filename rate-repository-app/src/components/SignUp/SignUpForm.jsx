@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const SignInForm = ({ formik }) => {
+const SignUpForm = ({ formik }) => {
   return (
     <View style={styles.container}>
       <CustomTextInput
@@ -50,13 +50,19 @@ const SignInForm = ({ formik }) => {
         placeholder='Password'
         value={formik.values.password}
         onChange={formik.handleChange("password")}
-        secureTextEntry={true}
+      />
+      <CustomTextInput
+        touched={formik.touched.confirmPassword}
+        error={formik.errors.confirmPassword}
+        placeholder='Password conformation'
+        value={formik.values.confirmPassword}
+        onChange={formik.handleChange("confirmPassword")}
       />
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
-        <Text color='white'>Sign In</Text>
+        <Text color='white'>Sign Up</Text>
       </Pressable>
     </View>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

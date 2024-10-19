@@ -2,25 +2,22 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import Text from "../Text";
 import theme from "../../theme";
 
-const headerStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 10,
-    maxWidth: '80%'
   },
   logo: {
     width: 50,
     height: 50,
-    marginLeft: 15,
-    marginRight: 15
-  },
-  button: {
-    backgroundColor: theme.colors.primary,
-    padding: 5,
+    marginLeft: 10,
+    marginRight: 15,
     borderRadius: 5,
-    alignSelf: 'flex-start',
+  },
+  details: {
+    flex: 1,
   },
   fullName : {
     marginBottom: 5,
@@ -29,20 +26,24 @@ const headerStyles = StyleSheet.create({
     marginBottom: 5,
     flexWrap: 'wrap'
   },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: 5,
+    borderRadius: 5,
+    alignSelf: 'flex-start',
+  },
 });
 
 const ItemHeader = ({ item }) => (
-  <View style={headerStyles.row}>
+  <View style={styles.row}>
     <Image
-      style={headerStyles.logo}
+      style={styles.logo}
       source={{ uri: item.ownerAvatarUrl }}
     />
-    <View>
-      <Text style={headerStyles.fullName} fontWeight="bold">{item.fullName}</Text>
-      <Text style={headerStyles.description} color='textSecondary'>{item.description}</Text>
-      <Pressable style={headerStyles.button}>
-        <Text color='white'>{item.language}</Text>
-      </Pressable>
+    <View style={styles.details}>
+      <Text style={styles.fullName} fontWeight="bold">{item.fullName}</Text>
+      <Text style={styles.description} color='textSecondary'>{item.description}</Text>
+      <Text style={styles.button} color='white'>{item.language}</Text>
     </View>
   </View>
 );
