@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { useNavigate } from "react-router-native";
 import useCreateReview from "../../hooks/useCreateReview";
 import ReviewForm from "./ReviewForm";
+import { Alert } from "react-native";
 
 const initialValues = {
   ownerName: '',
@@ -50,7 +51,8 @@ const CreateReview = () => {
       navigate(`/${data.createReview.repositoryId}`)
       console.log("review data", data);      
     } catch (e) {
-      console.log("review error", e);      
+      console.log("review error", e);
+      Alert.alert("Error", e.message)
     }
   }
 

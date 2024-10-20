@@ -7,13 +7,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.white
   },
-  inputBox: {
-    borderColor: theme.colors.fade,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    margin: 10,
-  },
   button: {
     backgroundColor: theme.colors.primary,
     padding: 13,
@@ -21,17 +14,6 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: 'center',
   },
-  errorMessage: {
-    marginLeft: 13,
-    marginTop: -5,
-  },
-  errorBox: {
-    borderColor: 'red',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    margin: 10,
-  }
 });
 
 const SignInForm = ({ formik }) => {

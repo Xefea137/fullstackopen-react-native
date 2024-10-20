@@ -62,18 +62,22 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const SingleRepository = () => {
   let { id } = useParams();
-  const { repository, loading, error } = useSingleRepository(id);
+  const { repository, loading, error, fetchMore } = useSingleRepository(id, 3);
 
-  /*if (loading) {
+  if (loading) {
     return <Text>Loading...</Text>
-  }*/
+  }
+
+  if (error) {
+    console.log(error);
+  }
 
   const reviews = repository
     ? repository.reviews.edges.map(edge => edge.node)
     : [];
 
-  if (error) {
-    console.log(error);
+  const onEndReach = () => {
+    fetchMore();
   }
 
   return (
@@ -89,6 +93,8 @@ const SingleRepository = () => {
             <ItemSeparator />
           </>
         )}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );

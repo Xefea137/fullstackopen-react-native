@@ -1,5 +1,3 @@
-import { View } from "react-native";
-import Text from "../Text";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import SignUpForm from "./SignUpForm";

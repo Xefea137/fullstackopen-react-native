@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  c: {
+  column: {
     backgroundColor: theme.colors.white,
   }
 })
@@ -79,7 +79,7 @@ const ReviewItem = ({ review, refetch }) => {
   }
 
   return (
-    <View style={styles.c}>
+    <View style={styles.column}>
       <View style={styles.row}>
         <View style={styles.rating}>
           <Text fontWeight='bold' color='primary'>{review.rating}</Text>
@@ -110,6 +110,10 @@ const MyReviews = () => {
   /*if (loading) {
     return <Text>Loading...</Text>
   }*/
+
+  if (error) {
+    console.log(error);    
+  }
 
   const reviews = me
     ? me.reviews.edges.map(edge => edge.node)

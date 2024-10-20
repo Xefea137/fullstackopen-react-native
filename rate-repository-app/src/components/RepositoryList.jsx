@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import theme from '../theme';
 import { useDebounce } from 'use-debounce';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -53,7 +54,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const { repositories, navigate } = this.props;
+    const { repositories, onEndReach, navigate } = this.props;
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
       : [];
@@ -70,6 +71,8 @@ export class RepositoryListContainer extends React.Component {
           )}
           ListHeaderComponent={this.renderHeader}
           keyExtractor={item => item.id}
+          onEndReached={onEndReach}
+          onEndReachedThreshold={0.5}
         />
       </View>
     );
@@ -77,49 +80,6 @@ export class RepositoryListContainer extends React.Component {
 }
 
 const ItemSeparator = () => <View style={styles.separator} />;
-
-/*export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder, searchQuery, setSearchQuery }) => {
-  const navigate = useNavigate();
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
-
-  return (
-    <View style={styles.mainContainer}>
-      <FlatList
-        data={repositoryNodes}
-        ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => navigate(`/${item.id}`)}>
-            <RepositoryItem item={item}/>
-          </Pressable>
-        )}
-        ListHeaderComponent={() => (
-          <>
-            <Searchbar
-              placeholder="Search"
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-              style={styles.inputBox}
-              mode='view'
-            />
-            <Picker
-              selectedValue={selectedOrder}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedOrder(itemValue)
-              }>
-              <Picker.Item label='Select an item...' value="" enabled={false} />
-              <Picker.Item label="Latest repositories" value="latest" />
-              <Picker.Item label="Highest rated repositories" value="highest" />
-              <Picker.Item label="Lowest rated repositories" value="lowest" />
-            </Picker>
-          </>
-        )}
-        keyExtractor={item => item.id}
-      />
-    </View>
-  );
-};*/
 
 const RepositoryList = () => {
   const navigate = useNavigate();
@@ -129,8 +89,8 @@ const RepositoryList = () => {
 
   let searchKeyword = value
 
-  let orderBy = 'CREATED_AT'
-  let orderDirection = 'DESC'
+  let orderBy = 'CREATED_AT';
+  let orderDirection = 'DESC';
   if (selectedOrder === 'latest') {
     orderBy = 'CREATED_AT';
     orderDirection = 'DESC';
@@ -142,17 +102,31 @@ const RepositoryList = () => {
     orderDirection = 'ASC';
   }
 
-  const { repositories, loading, error } = useRepositories(orderBy, orderDirection, searchKeyword);
+  const { repositories, loading, error, fetchMore } = useRepositories(orderBy, orderDirection, searchKeyword, 3);
 
-  /*if (loading) {
+  if (loading) {
     return <Text>Loading...</Text>
-  }*/
+  }
   
   if (error) {
     console.log(error);    
   }
 
-  return <RepositoryListContainer repositories={repositories} selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} searchQuery={searchQuery} setSearchQuery={setSearchQuery} navigate={navigate} />;
+  const onEndReach = () => {
+    fetchMore();
+  }
+
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      onEndReach={onEndReach}
+      selectedOrder={selectedOrder}
+      setSelectedOrder={setSelectedOrder}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      navigate={navigate}      
+    />
+  );
 };
 
 export default RepositoryList;
